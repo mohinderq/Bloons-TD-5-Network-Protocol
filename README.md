@@ -11,6 +11,25 @@ For example: 9, 1337, MohinderQ, 100
 
 9 means User Joined, followed by the char_id, char_name, and char_lvl
 
+# IP's
+
+The matchmaking server runs on ext-matchmaker-aws.btd5coopweb.scalr.ws:5577.
+
+# Start a quick match
+
+A socket can be used to create a connection to the matchmaking server. The server wants you to identify yourself. You can do so via the `17 command`. The matchmaking server will respond with `18`. 
+
+The connection has been set, and the matchmaker server now knows which player you are. 
+A quick match can then be started using the `12` command. The server will respond with a `13` command when an user is found. For some reason you have to respond with only `15`. Then the IP and Port can be grabbed from the `13` command, aswell as the other users character id. This character is later needed when contacting the game server.
+
+```
+self.send("101,{},13504721,Skudjemoer,none,-1,0".format(self.enemy_id))
+```
+
+If the other users character id is not mentioned in the `101` command the game server will stop responding. When the above command has been send to the game server, the connection has been set and the game will start.
+
+When talking to the game server every message will start with `106,` followed by the arguments. I think `106,` stands for a message about the game state. 
+
 # Network protocol
 
 1 => Match Found 
